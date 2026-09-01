@@ -1,4 +1,4 @@
-# Human Body — Software Systems Analysis and Design
+# Human Body — Software Systems Analysis and Design (Spring 2025)
 
 Applying UML and systems analysis methodologies to model the human body as an organizational structure, using:
 1. StarUML
