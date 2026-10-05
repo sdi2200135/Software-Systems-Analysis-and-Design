@@ -1,0 +1,1672 @@
+<!-- site for the explanation of the project -->
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Software Systems Analysis and Design</title>
+<style>
+:root {
+  --bg: #0c0a14;
+  --bg-card: #16121f;
+  --bg-soft: #241c33;
+  --text: #ece5f5;
+  --text-muted: #9b8fad;
+  --accent: #d946ef;
+  --accent-2: #e879f9;
+  --accent-3: #818cf8;
+  --success: #34d399;
+  --warn: #fbbf24;
+  --danger: #f87171;
+  --info: #60a5fa;
+  --sub01: #22d3ee;
+  --sub02: #a78bfa;
+  --sub03: #f472b6;
+  --sub04: #fbbf24;
+  --sub05: #34d399;
+  --sub06: #fb923c;
+  --border: #2e2440;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(217,70,239,0.08), transparent 45%),
+    radial-gradient(circle at 85% 90%, rgba(129,140,248,0.08), transparent 45%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+nav {
+  background: rgba(12, 10, 20, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 0 1.5rem;
+}
+
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--accent);
+  letter-spacing: -0.5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+.logo::before { content: "🎨"; font-size: 1.2rem; }
+
+.nav-links {
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 0.5rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.nav-links a:hover { color: var(--text); background: var(--bg-soft); }
+.nav-links a.active { color: var(--bg); background: var(--accent); }
+
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+}
+
+.page { display: none; animation: fadeIn 0.4s ease; }
+.page.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero {
+  text-align: center;
+  padding: 2rem 0 3rem;
+}
+
+.hero h1 {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: -1px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-3));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  color: var(--text-muted);
+  max-width: 760px;
+  margin: 0 auto 1.5rem;
+  font-size: 1.05rem;
+}
+
+.badges {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.badge {
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+}
+
+.badge.uml { color: #a78bfa; border-color: #a78bfa; }
+.badge.staruml { color: #22d3ee; border-color: #22d3ee; }
+.badge.python { color: #f87171; border-color: #f87171; }
+.badge.pytest { color: #34d399; border-color: #34d399; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin: 1.5rem 0;
+}
+
+.grid-6 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.5rem;
+  transition: all 0.25s;
+}
+
+.card:hover { transform: translateY(-3px); border-color: var(--accent); }
+.card h3 { font-size: 1.1rem; margin-bottom: 0.6rem; color: var(--text); }
+.card p { color: var(--text-muted); font-size: 0.92rem; }
+
+.sub-card { cursor: pointer; position: relative; overflow: hidden; }
+.sub-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--accent);
+}
+.sub-card.s01::before { background: var(--sub01); }
+.sub-card.s02::before { background: var(--sub02); }
+.sub-card.s03::before { background: var(--sub03); }
+.sub-card.s04::before { background: var(--sub04); }
+.sub-card.s05::before { background: var(--sub05); }
+.sub-card.s06::before { background: var(--sub06); }
+
+.sub-card .tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+.tag.s01 { background: rgba(34,211,238,0.15); color: var(--sub01); }
+.tag.s02 { background: rgba(167,139,250,0.15); color: var(--sub02); }
+.tag.s03 { background: rgba(244,114,182,0.15); color: var(--sub03); }
+.tag.s04 { background: rgba(251,191,36,0.15); color: var(--sub04); }
+.tag.s05 { background: rgba(52,211,153,0.15); color: var(--sub05); }
+.tag.s06 { background: rgba(251,146,60,0.15); color: var(--sub06); }
+
+.section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.section h2 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--text);
+}
+
+.section h2 .num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  background: var(--accent);
+  color: var(--bg);
+  flex-shrink: 0;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.section h3 {
+  font-size: 1rem;
+  margin: 1.2rem 0 0.6rem;
+  color: var(--accent-2);
+  font-weight: 600;
+}
+
+.sub-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.sub-header .icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  font-weight: 800;
+  flex-shrink: 0;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.sub-header.s01 .icon { background: rgba(34,211,238,0.15); color: var(--sub01); }
+.sub-header.s02 .icon { background: rgba(167,139,250,0.15); color: var(--sub02); }
+.sub-header.s03 .icon { background: rgba(244,114,182,0.15); color: var(--sub03); }
+.sub-header.s04 .icon { background: rgba(251,191,36,0.15); color: var(--sub04); }
+.sub-header.s05 .icon { background: rgba(52,211,153,0.15); color: var(--sub05); }
+.sub-header.s06 .icon { background: rgba(251,146,60,0.15); color: var(--sub06); }
+
+.sub-header h1 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.5px; }
+.sub-header p { color: var(--text-muted); font-size: 0.95rem; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.75rem 0;
+  font-size: 0.9rem;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+th, td {
+  padding: 0.7rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+th {
+  background: var(--bg-soft);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+}
+
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(217, 70, 239, 0.04); }
+
+td code, p code, li code, .step code {
+  background: var(--bg-soft);
+  padding: 0.15rem 0.45rem;
+  border-radius: 5px;
+  font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+  font-size: 0.85em;
+  color: var(--accent-2);
+  border: 1px solid var(--border);
+}
+
+.step-list {
+  list-style: none;
+  counter-reset: step;
+  padding-left: 0;
+}
+
+.step-list li {
+  counter-increment: step;
+  position: relative;
+  padding: 0.8rem 0 0.8rem 3rem;
+  border-left: 2px solid var(--border);
+  margin-left: 1rem;
+}
+
+.step-list li::before {
+  content: counter(step);
+  position: absolute;
+  left: -1.05rem;
+  top: 0.8rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  border: 3px solid var(--bg-card);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.step-list li:last-child { border-left-color: transparent; }
+.step-list li strong { color: var(--text); }
+.step-list li span { color: var(--text-muted); font-size: 0.92rem; display: block; margin-top: 0.15rem; }
+
+pre {
+  background: #06040d;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+  overflow-x: auto;
+  font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: #dcd0e8;
+  margin: 0.75rem 0;
+}
+
+pre .kw { color: #f472b6; }
+pre .cm { color: #675d7a; font-style: italic; }
+pre .str { color: #86efac; }
+pre .num { color: #fbbf24; }
+pre .fn { color: #22d3ee; }
+pre .type { color: #a78bfa; }
+
+.result-box {
+  background: linear-gradient(135deg, rgba(217,70,239,0.08), rgba(129,140,248,0.08));
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+  margin: 0.75rem 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  white-space: pre-wrap;
+  overflow-x: auto;
+}
+
+.alert {
+  padding: 1rem 1.2rem;
+  border-radius: 10px;
+  margin: 0.75rem 0;
+  border-left: 4px solid;
+  font-size: 0.92rem;
+}
+
+.alert.info { background: rgba(96,165,250,0.08); border-color: var(--info); }
+.alert.success { background: rgba(52,211,153,0.08); border-color: var(--success); }
+.alert.warn { background: rgba(251,191,36,0.08); border-color: var(--warn); }
+.alert.danger { background: rgba(248,113,113,0.08); border-color: var(--danger); }
+
+/* Sub-project overview cards */
+.task-checklist {
+  display: grid;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 1rem;
+  background: var(--bg-soft);
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.task-item .status {
+  flex-shrink: 0;
+  font-size: 1rem;
+  color: var(--success);
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Diagram containers - placeholders */
+.diagram-viewer {
+  background: #06040d;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem;
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.diagram-viewer .diagram-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px dashed var(--border);
+}
+
+.diagram-viewer img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.diagram-placeholder {
+  background: #06040d;
+  border: 2px dashed var(--border);
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  margin: 1rem 0;
+  text-align: center;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+}
+
+.diagram-placeholder .icon-large {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 0.75rem;
+  opacity: 0.4;
+}
+
+/* Elements list */
+.element-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.element {
+  padding: 0.75rem 1rem;
+  background: var(--bg-soft);
+  border-radius: 8px;
+  border-left: 3px solid;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+}
+
+.element.el-sub01 { border-color: var(--sub01); color: var(--sub01); }
+.element.el-sub02 { border-color: var(--sub02); color: var(--sub02); }
+.element.el-sub03 { border-color: var(--sub03); color: var(--sub03); }
+.element.el-sub04 { border-color: var(--sub04); color: var(--sub04); }
+.element.el-sub05 { border-color: var(--sub05); color: var(--sub05); }
+.element.el-sub06 { border-color: var(--sub06); color: var(--sub06); }
+
+.element .label {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 0.2rem;
+  letter-spacing: 0.5px;
+}
+
+/* Assumption items */
+.assumption {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--bg-soft);
+  border-radius: 10px;
+  margin-bottom: 0.75rem;
+  border-left: 3px solid var(--accent);
+}
+
+.assumption .icon-box {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 700;
+  background: rgba(217,70,239,0.15);
+  color: var(--accent);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.assumption .content { flex: 1; }
+.assumption .content strong { color: var(--text); display: block; margin-bottom: 0.2rem; font-size: 0.95rem; }
+.assumption .content span { color: var(--text-muted); font-size: 0.88rem; }
+
+/* GitHub Actions badge */
+.gh-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--bg-soft);
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  margin: 0.5rem 0;
+}
+
+.gh-badge .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--success);
+  box-shadow: 0 0 8px var(--success);
+}
+
+footer {
+  text-align: center;
+  padding: 2rem 1.5rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  border-top: 1px solid var(--border);
+  margin-top: 2rem;
+}
+
+@media (max-width: 640px) {
+  .nav-inner { height: auto; padding: 0.75rem 0; }
+  .nav-links { width: 100%; justify-content: center; }
+  .nav-links a { padding: 0.4rem 0.7rem; font-size: 0.82rem; }
+  .section { padding: 1.25rem; }
+  .sub-header h1 { font-size: 1.3rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo" onclick="go('home')">SSAD · Human Body</div>
+    <ul class="nav-links">
+      <li><a data-page="home" onclick="go('home')">Αρχική</a></li>
+      <li><a data-page="sub01" onclick="go('sub01')">01 · Use Case</a></li>
+      <li><a data-page="sub02" onclick="go('sub02')">02 · Class</a></li>
+      <li><a data-page="sub03" onclick="go('sub03')">03 · Sequence</a></li>
+      <li><a data-page="sub04" onclick="go('sub04')">04 · Statechart</a></li>
+      <li><a data-page="sub05" onclick="go('sub05')">05 · DFD</a></li>
+      <li><a data-page="sub06" onclick="go('sub06')">06 · Code</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+
+<!-- ==================== HOME ==================== -->
+<section class="page active" id="home">
+  <div class="hero">
+    <h1>Software Systems Analysis & Design</h1>
+    <p>
+      Εφαρμογή μεθοδολογιών <strong>UML</strong> και <strong>Systems Analysis</strong> 
+      για τη μοντελοποίηση του ανθρώπινου σώματος ως <em>οργανωτική δομή</em> — 
+      από requirements capture μέχρι executable code με automated testing.
+    </p>
+    <div class="badges">
+      <span class="badge uml">UML 2.x</span>
+      <span class="badge staruml">StarUML</span>
+      <span class="badge python">Python 3.10</span>
+      <span class="badge pytest">pytest + GitHub Actions</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>📖 Σχετικά με την Εργασία</h2>
+    <p>
+      Η παρούσα εργασία αποτελεί το project του μαθήματος 
+      <em>«Ανάλυση και Σχεδίαση Συστημάτων»</em> (Spring 2025). Πραγματεύεται 
+      το <strong>ανθρώπινο σώμα ως οργανωτική δομή</strong>, εφαρμόζοντας 
+      μια σειρά από <strong>6 διαδοχικά micro-tasks</strong> που καλύπτουν 
+      ολόκληρο το φάσμα των μεθοδολογιών ανάλυσης και σχεδίασης.
+    </p>
+
+    <div class="alert info">
+      <strong>Reference Material:</strong> 
+      <a href="https://www.britannica.com/science/human-body" target="_blank" style="color:var(--accent-2);">Britannica — Human Body</a>
+      — Η κύρια πηγή γνώσης για το domain.
+    </div>
+
+    <div class="alert success">
+      <strong>Πλήρης υλοποίηση:</strong> Όλα τα 6 sub-projects έχουν 
+      ολοκληρωθεί — από requirements elicitation και UML modeling μέχρι 
+      executable Python code με passing unit tests σε GitHub Actions.
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>📋 Τα 6 Micro-Tasks</h2>
+    <p style="color:var(--text-muted); margin-bottom:1rem;">
+      Κάθε task χτίζει πάνω στο προηγούμενο — από high-level requirements 
+      μέχρι testing και continuous validation.
+    </p>
+
+    <div class="grid-6">
+      <div class="card sub-card s01" onclick="go('sub01')">
+        <span class="tag s01">Sub01</span>
+        <h3>Use Case Model</h3>
+        <p>System boundaries, actors (mammals / birds / fish), use cases με include & extend relationships.</p>
+      </div>
+
+      <div class="card sub-card s02" onclick="go('sub02')">
+        <span class="tag s02">Sub02</span>
+        <h3>Class Structure</h3>
+        <p>Object-oriented modeling — abstract classes, inheritance, aggregations, compositions, enumeration.</p>
+      </div>
+
+      <div class="card sub-card s03" onclick="go('sub03')">
+        <span class="tag s03">Sub03</span>
+        <h3>Interaction Flow</h3>
+        <p>Sequence diagram για τον κύκλο αναπνοής — synchronous & asynchronous messaging.</p>
+      </div>
+
+      <div class="card sub-card s04" onclick="go('sub04')">
+        <span class="tag s04">Sub04</span>
+        <h3>Behavioral States</h3>
+        <p>Statechart με triggers, guards, activities — response σε stimulus.</p>
+      </div>
+
+      <div class="card sub-card s05" onclick="go('sub05')">
+        <span class="tag s05">Sub05</span>
+        <h3>Data Flow (Level 1)</h3>
+        <p>DFD του νευρικού συστήματος — processes, external entities, data store.</p>
+      </div>
+
+      <div class="card sub-card s06" onclick="go('sub06')">
+        <span class="tag s06">Sub06</span>
+        <h3>Code + Testing</h3>
+        <p>Python class + pytest unit tests + CI με GitHub Actions.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>🎯 Core Competencies</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>1️⃣ Requirement Elicitation</h3>
+        <p>Actor identification, use case definition, boundary specification — από τη Britannica περιγραφή.</p>
+      </div>
+      <div class="card">
+        <h3>2️⃣ Object-Oriented Modeling</h3>
+        <p>Classes, inheritance hierarchies, abstract structures, encapsulation, enumerations.</p>
+      </div>
+      <div class="card">
+        <h3>3️⃣ Dynamic Modeling</h3>
+        <p>Sequence interactions, state transitions, combined interaction fragments.</p>
+      </div>
+      <div class="card">
+        <h3>4️⃣ Data-Oriented Analysis</h3>
+        <p>Process decomposition, external interfaces, persistent storage representation.</p>
+      </div>
+      <div class="card">
+        <h3>5️⃣ Development & Verification</h3>
+        <p>Python OOP, unit testing strategies, continuous validation μέσω CI.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>🛠️ Development Stack</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>StarUML</h3>
+        <p>Δημιουργία όλων των UML artifacts — Use Case, Class, Sequence, Statechart.</p>
+      </div>
+      <div class="card">
+        <h3>Python 3.10</h3>
+        <p>Υλοποίηση της κλάσης Musculoskeletal_System με unit tests.</p>
+      </div>
+      <div class="card">
+        <h3>pytest</h3>
+        <p>Framework για unit testing — 3 test functions με assertions.</p>
+      </div>
+      <div class="card">
+        <h3>GitHub Actions</h3>
+        <p>Continuous Integration — αυτόματο τρέξιμο των tests σε κάθε push.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>👤 Φοιτητής</h2>
+    <table>
+      <thead><tr><th>Πεδίο</th><th>Τιμή</th></tr></thead>
+      <tbody>
+        <tr><td>Ονοματεπώνυμο</td><td>Παπαθανασίου Ελένη</td></tr>
+        <tr><td>Α.Μ.</td><td>1115202200135</td></tr>
+        <tr><td>Email</td><td>papathelen@gmail.com</td></tr>
+        <tr><td>Πανεπιστήμιο</td><td>Εθνικό και Καποδιστριακό Πανεπιστήμιο Αθηνών</td></tr>
+        <tr><td>Μάθημα</td><td>Software Systems Analysis and Design</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ==================== SUB01 ==================== -->
+<section class="page" id="sub01">
+  <div class="sub-header s01">
+    <div class="icon">01</div>
+    <div>
+      <h1>Use Case Model</h1>
+      <p>Human body as organization — actors, use cases, relationships</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">1</span> Σκοπός</h2>
+    <p>
+      Κατασκευή ενός <strong>Use Case Diagram</strong> που απεικονίζει το 
+      ανθρώπινο σώμα ως <strong>οργανισμό</strong>. Οι actors που 
+      αλληλεπιδρούν με τον οργανισμό είναι τα ζώα — 
+      <strong>θηλαστικά, πτηνά, ψάρια</strong>.
+    </p>
+
+    <h3>Goals</h3>
+    <div class="task-checklist">
+      <div class="task-item"><span class="status">✓</span> Depict system boundary</div>
+      <div class="task-item"><span class="status">✓</span> Depict basic use cases (≥3, ≤10)</div>
+      <div class="task-item"><span class="status">✓</span> Depict actors</div>
+      <div class="task-item"><span class="status">✓</span> Depict relationships (associations, includes, extends, generalizations)</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">2</span> Διάγραμμα</h2>
+
+    <div class="diagram-placeholder">
+      <span class="icon-large">📊</span>
+      <strong>Use Case Diagram — UCD_sdi2200135</strong>
+      <p style="margin-top:0.75rem;">Δείτε το πλήρες διάγραμμα στο PDF ή την εικόνα του repository.</p>
+      <div class="gh-badge" style="margin-top:1rem; display:inline-flex;">
+        <span class="dot"></span>
+        UCD_sdi2200135.pdf · UCD_sdi2200135.png
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">3</span> Actors</h2>
+    <p>Τρεις actors — υποκατηγορίες του <em>Animals</em> — με generalization relationships:</p>
+
+    <div class="element-list">
+      <div class="element el-sub01">
+        <span class="label">Actor · Generalization Child</span>
+        Mammals
+      </div>
+      <div class="element el-sub01">
+        <span class="label">Actor · Generalization Child</span>
+        Birds
+      </div>
+      <div class="element el-sub01">
+        <span class="label">Actor · Generalization Child</span>
+        Fishes
+      </div>
+      <div class="element el-sub01">
+        <span class="label">Actor · Parent</span>
+        Animals
+      </div>
+    </div>
+
+    <div class="alert info">
+      <strong>Generalization:</strong> Τα θηλαστικά, πτηνά και ψάρια 
+      κληρονομούν από τον actor <em>Animals</em> — shared behaviors 
+      που κληροδοτούνται στα παιδιά.
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">4</span> Use Cases</h2>
+
+    <h3>Βασικά Use Cases — Συστήματα του Σώματος</h3>
+    <div class="element-list">
+      <div class="element el-sub01"><span class="label">System</span> Digestive System</div>
+      <div class="element el-sub01"><span class="label">System</span> Integumentary System</div>
+      <div class="element el-sub01"><span class="label">System</span> Circulatory System</div>
+      <div class="element el-sub01"><span class="label">System</span> Musculoskeletal System</div>
+      <div class="element el-sub01"><span class="label">System</span> Nervous System</div>
+      <div class="element el-sub01"><span class="label">System</span> Excretory System</div>
+      <div class="element el-sub01"><span class="label">System</span> Respiratory System</div>
+      <div class="element el-sub01"><span class="label">System</span> Endocrine System</div>
+      <div class="element el-sub01"><span class="label">System</span> Reproductive System</div>
+    </div>
+
+    <h3>Include Relationships — Cell Groups</h3>
+    <p style="color:var(--text-muted);">Κάθε σύστημα <em>περιλαμβάνει</em> τη βασική κυτταρική ομάδα του:</p>
+    <div class="element-list">
+      <div class="element el-sub01"><span class="label">Include</span> Epithelial Cells</div>
+      <div class="element el-sub01"><span class="label">Include</span> Connective Cells</div>
+      <div class="element el-sub01"><span class="label">Include</span> Muscle Cells</div>
+      <div class="element el-sub01"><span class="label">Include</span> Nerve Cells</div>
+    </div>
+
+    <h3>Extend Relationships — Species-Specific Variations</h3>
+    <p style="color:var(--text-muted);">Extend για διαφορές μεταξύ fish / birds vs mammals:</p>
+    <div class="element-list">
+      <div class="element el-sub01"><span class="label">Extend</span> Fishes have scales instead of skin</div>
+      <div class="element el-sub01"><span class="label">Extend</span> Birds have feathers in their skin</div>
+      <div class="element el-sub01"><span class="label">Extend</span> Fishes use their scales to breathe</div>
+      <div class="element el-sub01"><span class="label">Extend</span> Birds have more developed vision</div>
+      <div class="element el-sub01"><span class="label">Extend</span> Birds and fishes produce eggs</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">5</span> Assumptions</h2>
+
+    <div class="assumption">
+      <div class="icon-box">01</div>
+      <div class="content">
+        <strong>Επιλογή τομέα</strong>
+        <span>Επιλέχθηκε η ενότητα <em>Organization of the body</em> από τη Britannica ως βάση για το μοντέλο.</span>
+      </div>
+    </div>
+
+    <div class="assumption">
+      <div class="icon-box">02</div>
+      <div class="content">
+        <strong>Includes — Cell Groups</strong>
+        <span>Για τα includes χρησιμοποιήθηκαν οι κυτταρικές ομάδες που αναφέρονται στην ενότητα <em>Organization of the body</em> και πού τις συναντάμε συχνότερα.</span>
+      </div>
+    </div>
+
+    <div class="assumption">
+      <div class="icon-box">03</div>
+      <div class="content">
+        <strong>Extends — Species Variations</strong>
+        <span>Για τα extends χρησιμοποιήθηκαν λειτουργίες που διαφέρουν σε ψάρια και πτηνά σε σύγκριση με τα θηλαστικά.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SUB02 ==================== -->
+<section class="page" id="sub02">
+  <div class="sub-header s02">
+    <div class="icon">02</div>
+    <div>
+      <h1>Class Diagram</h1>
+      <p>Object-oriented modeling — abstract classes, inheritance, relationships</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">1</span> Σκοπός</h2>
+    <p>
+      Κατασκευή ενός <strong>Class Diagram</strong> που μοντελοποιεί το 
+      ανθρώπινο σώμα ως <strong>οργανισμό</strong> με object-oriented 
+      αρχές: κληρονομικότητα, αφαίρεση, encapsulation, enumerations.
+    </p>
+
+    <h3>Goals</h3>
+    <div class="task-checklist">
+      <div class="task-item"><span class="status">✓</span> Human Body class με ≥2 attributes + ≥2 methods</div>
+      <div class="task-item"><span class="status">✓</span> Basic systems as classes (≥3, ≤10)</div>
+      <div class="task-item"><span class="status">✓</span> At least one abstract class</div>
+      <div class="task-item"><span class="status">✓</span> Relationships (aggregations, compositions, associations, dependencies, inheritance)</div>
+      <div class="task-item"><span class="status">✓</span> At least one enumeration</div>
+      <div class="task-item"><span class="status">✓</span> At least one static class attribute</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">2</span> Διάγραμμα</h2>
+
+    <div class="diagram-placeholder">
+      <span class="icon-large">🏛️</span>
+      <strong>Class Diagram — CD_sdi2200135</strong>
+      <p style="margin-top:0.75rem;">Δείτε το πλήρες διάγραμμα στο PDF ή την εικόνα του repository.</p>
+      <div class="gh-badge" style="margin-top:1rem; display:inline-flex;">
+        <span class="dot"></span>
+        CD_sdi2200135.pdf · CD_sdi2200135.png
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">3</span> Βασικές Κλάσεις</h2>
+
+    <h3>Human Body — Abstract</h3>
+    <div class="element-list">
+      <div class="element el-sub02"><span class="label">Abstract Class</span> Human Body</div>
+      <div class="element el-sub02"><span class="label">Attribute</span> height : Float</div>
+      <div class="element el-sub02"><span class="label">Attribute</span> weight : Float</div>
+      <div class="element el-sub02"><span class="label">Abstract Method</span> cell_group() : String</div>
+      <div class="element el-sub02"><span class="label">Method</span> heal() : Boolean</div>
+    </div>
+
+    <h3>Mammals — Abstract</h3>
+    <div class="element-list">
+      <div class="element el-sub02"><span class="label">Abstract Class</span> Mammals</div>
+      <div class="element el-sub02"><span class="label">Attribute</span> age : Integer</div>
+      <div class="element el-sub02"><span class="label">Abstract Method</span> speak() : String</div>
+      <div class="element el-sub02"><span class="label">Method</span> move() : Boolean</div>
+    </div>
+
+    <h3>Systems — Concrete Classes</h3>
+    <div class="element-list">
+      <div class="element el-sub02"><span class="label">Class</span> Integumentary System</div>
+      <div class="element el-sub02"><span class="label">Class</span> Musculoskeletal System</div>
+      <div class="element el-sub02"><span class="label">Class</span> Circulatory System</div>
+      <div class="element el-sub02"><span class="label">Class</span> Digestive System</div>
+      <div class="element el-sub02"><span class="label">Class</span> Respiratory System</div>
+      <div class="element el-sub02"><span class="label">Class</span> Nervous System</div>
+      <div class="element el-sub02"><span class="label">Class</span> Excretory System</div>
+      <div class="element el-sub02"><span class="label">Class</span> Endocrine System</div>
+      <div class="element el-sub02"><span class="label">Class</span> Reproductive System</div>
+    </div>
+
+    <h3>Organ / Inherited Classes</h3>
+    <div class="element-list">
+      <div class="element el-sub02"><span class="label">Class · extends Circulatory</span> Veins</div>
+      <div class="element el-sub02"><span class="label">Class · extends Nervous</span> Brain</div>
+    </div>
+
+    <h3>Enumeration</h3>
+    <div class="element-list">
+      <div class="element el-sub02"><span class="label">Enumeration</span> gender</div>
+      <div class="element el-sub02"><span class="label">Value</span> male</div>
+      <div class="element el-sub02"><span class="label">Value</span> female</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">4</span> Relationships</h2>
+
+    <table>
+      <thead><tr><th>Σχέση</th><th>Μεταξύ</th><th>Αιτιολόγηση</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Composition</strong></td>
+          <td>Human Body ◆— Individual Systems</td>
+          <td>Το σώμα έχει ισχυρή εξάρτηση από τα συστήματα — δεν υπάρχουν χωρίς αυτό.</td>
+        </tr>
+        <tr>
+          <td><strong>Aggregation</strong></td>
+          <td>Nervous System ◇— Brain</td>
+          <td>Ο εγκέφαλος μπορεί να υπάρξει χωρίς το νευρικό σύστημα (π.χ. για έρευνα σε εργαστήριο).</td>
+        </tr>
+        <tr>
+          <td><strong>Generalization</strong></td>
+          <td>Mammals → Human beings / Non-human beings</td>
+          <td>Διαχωρισμός των θηλαστικών σε δύο υποκατηγορίες.</td>
+        </tr>
+        <tr>
+          <td><strong>Directed Association</strong></td>
+          <td>Human beings → Human Body</td>
+          <td>Ο άνθρωπος "έχει" ένα σώμα — κατευθυνόμενη σχέση.</td>
+        </tr>
+        <tr>
+          <td><strong>Dependency</strong></td>
+          <td>Circulatory System ⇢ Veins</td>
+          <td>Οι φλέβες είναι απαραίτητες για τη λειτουργία της κυκλοφορίας.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">5</span> Assumptions</h2>
+
+    <div class="assumption">
+      <div class="icon-box">01</div>
+      <div class="content">
+        <strong>Human Body attributes</strong>
+        <span>Ως attributes: <code>height</code> και <code>weight</code>. Ως operations: <code>cell_group()</code> (προσδιορίζει την κυτταρική ομάδα) και <code>heal()</code> (δείχνει αν το σύστημα μπορεί να επουλωθεί).</span>
+      </div>
+    </div>
+
+    <div class="assumption">
+      <div class="icon-box">02</div>
+      <div class="content">
+        <strong>Abstract Classes</strong>
+        <span><strong>Mammals</strong> με abstract <code>speak()</code> (κάθε θηλαστικό μιλάει διαφορετικά) και <strong>Human Body</strong> με abstract <code>cell_group()</code> (κάθε σύστημα έχει διαφορετική κυτταρική ομάδα).</span>
+      </div>
+    </div>
+
+    <div class="assumption">
+      <div class="icon-box">03</div>
+      <div class="content">
+        <strong>Aggregation: Brain ↔ Nervous System</strong>
+        <span>Ο εγκέφαλος μπορεί να υπάρξει χωρίς το νευρικό σύστημα όταν χρησιμοποιείται για μελέτη και έρευνα σε εργαστήρια.</span>
+      </div>
+    </div>
+
+    <div class="assumption">
+      <div class="icon-box">04</div>
+      <div class="content">
+        <strong>Composition: Human Body ◆ Systems</strong>
+        <span>Το ανθρώπινο σώμα έχει ισχυρή εξάρτηση από τα επιμέρους συστήματα — δεν μπορούν να υπάρξουν ανεξάρτητα.</span>
+      </div>
+    </div>
+
+    <div class="assumption">
+      <div class="icon-box">05</div>
+      <div class="content">
+        <strong>Directed Association & Generalization</strong>
+        <span>Directed association μεταξύ Human beings → Human Body. Generalization για διαχωρισμό mammals σε Human beings / Non-human beings.</span>
+      </div>
+    </div>
+
+    <div class="assumption">
+      <div class="icon-box">06</div>
+      <div class="content">
+        <strong>Dependency: Circulatory System → Veins</strong>
+        <span>Οι φλέβες είναι απαραίτητες για τη σωστή λειτουργία του κυκλοφορικού συστήματος.</span>
+      </div>
+    </div>
+
+    <div class="assumption">
+      <div class="icon-box">07</div>
+      <div class="content">
+        <strong>Enumeration: gender</strong>
+        <span>Το <code>gender</code> των Mammals μπορεί να πάρει 2 τιμές: <code>male</code> ή <code>female</code>.</span>
+      </div>
+    </div>
+
+    <div class="assumption">
+      <div class="icon-box">08</div>
+      <div class="content">
+        <strong>Static attribute: average_lifespan</strong>
+        <span>Ορίστηκε ως <code>static</code> στην κλάση Human beings, γιατί είναι χαρακτηριστικό που βρίσκεται σε συγκεκριμένη χρονική στιγμή στη ζωή μεγάλου ποσοστού ανθρώπων.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SUB03 ==================== -->
+<section class="page" id="sub03">
+  <div class="sub-header s03">
+    <div class="icon">03</div>
+    <div>
+      <h1>Sequence Diagram</h1>
+      <p>Cellular metabolism — synchronous & asynchronous interactions</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">1</span> Σκοπός</h2>
+    <p>
+      Κατασκευή ενός <strong>Sequence Diagram</strong> που απεικονίζει όλες 
+      τις αλληλεπιδράσεις κατά τη διάρκεια της <strong>αναπνοής</strong> — 
+      τον κύκλο υποστήριξης του <em>cellular metabolism</em>.
+    </p>
+
+    <h3>Goals</h3>
+    <div class="task-checklist">
+      <div class="task-item"><span class="status">✓</span> At least 3 objects / lifelines</div>
+      <div class="task-item"><span class="status">✓</span> At least 3 synchronous messages</div>
+      <div class="task-item"><span class="status">✓</span> At least 1 asynchronous message</div>
+      <div class="task-item"><span class="status">✓</span> At least 1 combined fragment (loop, alt, opt)</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">2</span> Διάγραμμα</h2>
+
+    <div class="diagram-placeholder">
+      <span class="icon-large">🔁</span>
+      <strong>Sequence Diagram — SD_sdi2200135</strong>
+      <p style="margin-top:0.75rem;">Collaboration: Support of Cellular Metabolism</p>
+      <div class="gh-badge" style="margin-top:1rem; display:inline-flex;">
+        <span class="dot"></span>
+        SD_sdi2200135.pdf · SD_sdi2200135.png
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">3</span> Lifelines</h2>
+    <div class="element-list">
+      <div class="element el-sub03"><span class="label">Lifeline 1</span> Air</div>
+      <div class="element el-sub03"><span class="label">Lifeline 2</span> Respiratory System</div>
+      <div class="element el-sub03"><span class="label">Lifeline 3</span> Blood</div>
+      <div class="element el-sub03"><span class="label">Lifeline 4</span> Cells</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">4</span> Message Sequence</h2>
+
+    <table>
+      <thead><tr><th>#</th><th>Message</th><th>From → To</th><th>Type</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td><code>cellular_metabolism_process()</code></td>
+          <td>Endpoint → Air</td>
+          <td><span style="color:var(--info);">Synchronous</span></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td><code>provides_oxygen()</code></td>
+          <td>Air → Respiratory System</td>
+          <td><span style="color:var(--info);">Synchronous</span></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td><code>transports_oxygen()</code></td>
+          <td>Respiratory → Blood</td>
+          <td><span style="color:var(--info);">Synchronous</span></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td><code>gives_oxygen_for_metabolism()</code></td>
+          <td>Blood → Cells</td>
+          <td><span style="color:var(--accent);">Asynchronous</span></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td><code>carries_away_waste_products()</code></td>
+          <td>Cells → Blood</td>
+          <td><span style="color:var(--accent);">Asynchronous</span></td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td><code>transports_carbon_dioxide()</code></td>
+          <td>Blood → Respiratory</td>
+          <td><span style="color:var(--info);">Synchronous</span></td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td><code>releases_carbon_dioxide()</code></td>
+          <td>Respiratory → Air</td>
+          <td><span style="color:var(--info);">Synchronous</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="alert info">
+      <strong>Loop fragment:</strong> Ολόκληρη η αλληλουχία βρίσκεται μέσα σε 
+      ένα <code>loop [constantly]</code> — η αναπνοή είναι συνεχής διαδικασία.
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">5</span> Assumptions</h2>
+
+    <div class="assumption">
+      <div class="icon-box">01</div>
+      <div class="content">
+        <strong>Asynchronous messaging</strong>
+        <span>Χρησιμοποιείται asynchronous messaging όταν το οξυγόνο μεταφέρεται στα κύτταρα και όταν τα waste products απομακρύνονται — αυτές οι δύο εργασίες μπορούν να γίνουν <em>ταυτόχρονα</em>.</span>
+      </div>
+    </div>
+
+    <div class="assumption">
+      <div class="icon-box">02</div>
+      <div class="content">
+        <strong>Synchronous messaging</strong>
+        <span>Χρησιμοποιείται σε όλες τις άλλες περιπτώσεις — όπου υπάρχει σειριακή εξάρτηση.</span>
+      </div>
+    </div>
+
+    <div class="assumption">
+      <div class="icon-box">03</div>
+      <div class="content">
+        <strong>Loop fragment</strong>
+        <span>Χρήση ενός <code>loop</code> για να δειχθεί ότι η διαδικασία συμβαίνει <strong>συνεχώς</strong>.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SUB04 ==================== -->
+<section class="page" id="sub04">
+  <div class="sub-header s04">
+    <div class="icon">04</div>
+    <div>
+      <h1>Statechart Diagram</h1>
+      <p>Behavioral states, triggers, guards, activities</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">1</span> Σκοπός</h2>
+    <p>
+      Επιλογή μιας κλάσης από το Class Diagram και απεικόνιση όλων των 
+      <strong>states</strong> των instances της μέσω 
+      <strong>Statechart Diagram</strong>. Οι καταστάσεις αφορούν τη 
+      λειτουργία του ανθρώπινου σώματος σε περίπτωση <em>stimulus</em>.
+    </p>
+
+    <h3>Goals</h3>
+    <div class="task-checklist">
+      <div class="task-item"><span class="status">✓</span> At least 3 states</div>
+      <div class="task-item"><span class="status">✓</span> At least one trigger</div>
+      <div class="task-item"><span class="status">✓</span> At least one guard</div>
+      <div class="task-item"><span class="status">✓</span> At least one activity</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">2</span> Διάγραμμα</h2>
+
+    <div class="diagram-placeholder">
+      <span class="icon-large">⚡</span>
+      <strong>Statechart Diagram — SCD_sdi2200135</strong>
+      <p style="margin-top:0.75rem;">States of the Human Body instance in case of stimulus</p>
+      <div class="gh-badge" style="margin-top:1rem; display:inline-flex;">
+        <span class="dot"></span>
+        SCD_sdi2200135.pdf · SCD_sdi2200135.png
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">3</span> States</h2>
+
+    <div class="element-list">
+      <div class="element el-sub04"><span class="label">Initial → State 1</span> Είσαι σε εγρήγορση</div>
+      <div class="element el-sub04"><span class="label">State 2</span> Έτοιμος να μεταφέρει σήμα</div>
+      <div class="element el-sub04"><span class="label">State 3</span> Είσαι σε διαδικασία σκέψης</div>
+      <div class="element el-sub04"><span class="label">State 4</span> Έτοιμος για να δράσεις</div>
+      <div class="element el-sub04"><span class="label">State 5</span> Έτοιμος για άμεση δράση</div>
+    </div>
+
+    <div class="alert info">
+      <strong>Initial → Final:</strong> Από την αρχική κατάσταση ξεκινά η 
+      αλληλουχία. Η τελική κατάσταση (FinalState) βρίσκεται μετά την 
+      "Έτοιμος για άμεση δράση" — αφού ολοκληρωθεί η αντίδραση.
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">4</span> Transitions</h2>
+
+    <table>
+      <thead><tr><th>From → To</th><th>Trigger / Event</th><th>Type</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Είσαι σε εγρήγορση → Έτοιμος να μεταφέρει σήμα</td>
+          <td><code>λήψη σήματος από ερέθισμα / μεταφορά_σήματος_για_επεξεργασία()</code></td>
+          <td><span style="color:var(--warn);">Trigger</span></td>
+        </tr>
+        <tr>
+          <td>Έτοιμος να μεταφέρει σήμα → Είσαι σε διαδικασία σκέψης</td>
+          <td><code>προώθηση στον εγκέφαλο[επεξεργασία] / επεξεργασία_&_αξιολόγηση_σήματος()</code></td>
+          <td><span style="color:var(--success);">Guard</span> + <span style="color:var(--info);">Activity</span></td>
+        </tr>
+        <tr>
+          <td>Είσαι σε διαδικασία σκέψης → Έτοιμος για να δράσεις</td>
+          <td><code>λήψη απόφασης / σκέψη_&_προετοιμασία_δράσης()</code></td>
+          <td><span style="color:var(--info);">Activity</span></td>
+        </tr>
+        <tr>
+          <td>Έτοιμος για να δράσεις → Έτοιμος για άμεση δράση</td>
+          <td><code>ενεργοποίηση_αντανακλαστικού()</code></td>
+          <td><span style="color:var(--warn);">Trigger</span></td>
+        </tr>
+        <tr>
+          <td>Έτοιμος για να δράσεις → FinalState</td>
+          <td><code>λήψη κινητικής εντολής / εκτέλεση_μέσω_μυών_και_αδένων()</code></td>
+          <td><span style="color:var(--info);">Activity</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="alert success">
+      <strong>Trigger, Guard, Activity:</strong> Όλα τα απαραίτητα elements 
+      είναι παρόντα — trigger (λήψη σήματος), guard (<code>[επεξεργασία]</code>), 
+      activity (<code>επεξεργασία_&_αξιολόγηση_σήματος()</code>).
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">5</span> Assumptions</h2>
+
+    <div class="assumption">
+      <div class="icon-box">01</div>
+      <div class="content">
+        <strong>Functions of the human body in case of a stimulus</strong>
+        <span>Επιλέχθηκε να μοντελοποιηθεί η συμπεριφορά του ανθρώπινου σώματος όταν δέχεται ένα ερέθισμα — από την αντίληψη μέχρι τη δράση.</span>
+      </div>
+    </div>
+
+    <div class="assumption">
+      <div class="icon-box">02</div>
+      <div class="content">
+        <strong>Reflex vs Conscious Action</strong>
+        <span>Το μοντέλο διακρίνει δύο μονοπάτια: την <em>άμεση αντίδραση</em> (reflex) και την <em>συνειδητή δράση</em> (μέσω σκέψης και απόφασης).</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SUB05 ==================== -->
+<section class="page" id="sub05">
+  <div class="sub-header s05">
+    <div class="icon">05</div>
+    <div>
+      <h1>Data Flow Diagram (Level 1)</h1>
+      <p>Nervous system — processes, external entities, data store</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">1</span> Σκοπός</h2>
+    <p>
+      Επιλογή ενός subsystem του ανθρώπινου σώματος και κατασκευή ενός 
+      <strong>1-Level Data Flow Diagram</strong>. Επιλέχθηκε το 
+      <strong>νευρικό σύστημα</strong> — συγκεκριμένα η διαδικασία που 
+      ακολουθείται σε περίπτωση <em>ερεθίσματος</em>.
+    </p>
+
+    <h3>Goals</h3>
+    <div class="task-checklist">
+      <div class="task-item"><span class="status">✓</span> At least 3 processes</div>
+      <div class="task-item"><span class="status">✓</span> At least 1 external entity</div>
+      <div class="task-item"><span class="status">✓</span> At least 1 data store</div>
+      <div class="task-item"><span class="status">✓</span> All necessary flows</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">2</span> Διάγραμμα</h2>
+
+    <div class="diagram-placeholder">
+      <span class="icon-large">🔀</span>
+      <strong>Data Flow Diagram — DFD_sdi2200135</strong>
+      <p style="margin-top:0.75rem;">ΔΡΑ 0: ΕΠΕΞΕΡΓΑΣΙΑ ΕΡΕΘΙΣΜΑΤΩΝ — Επίπεδο Αποσύνθεσης: 1</p>
+      <div class="gh-badge" style="margin-top:1rem; display:inline-flex;">
+        <span class="dot"></span>
+        SCD_sdi2200135.pdf · SCD_sdi2200135.png
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">3</span> Processes</h2>
+
+    <div class="element-list">
+      <div class="element el-sub05">
+        <span class="label">Process 1</span>
+        Λήψη Αισθητηριακών Σημάτων
+      </div>
+      <div class="element el-sub05">
+        <span class="label">Process 2</span>
+        Επεξεργασία στον Εγκέφαλο
+      </div>
+      <div class="element el-sub05">
+        <span class="label">Process 3</span>
+        Αποστολή Εντολών μέσω Νεύρων
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">4</span> External Entities</h2>
+    <div class="element-list">
+      <div class="element el-sub05"><span class="label">External Entity</span> Περιβάλλον</div>
+      <div class="element el-sub05"><span class="label">External Entity</span> Μυϊκό Σύστημα</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">5</span> Data Store</h2>
+    <div class="element-list">
+      <div class="element el-sub05"><span class="label">Data Store</span> Μνήμη</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">6</span> Data Flows</h2>
+
+    <table>
+      <thead><tr><th>From</th><th>To</th><th>Flow</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Περιβάλλον</td>
+          <td>1. Λήψη Αισθητηριακών Σημάτων</td>
+          <td><span style="color:var(--accent-2);">Ερέθισμα</span></td>
+        </tr>
+        <tr>
+          <td>1. Λήψη Αισθητηριακών Σημάτων</td>
+          <td>2. Επεξεργασία στον Εγκέφαλο</td>
+          <td><span style="color:var(--accent-2);">Αποστολή Δεδομένων</span></td>
+        </tr>
+        <tr>
+          <td>2. Επεξεργασία στον Εγκέφαλο</td>
+          <td>Μνήμη</td>
+          <td><span style="color:var(--accent-2);">Νέα εμπειρία προς αποθήκευση</span></td>
+        </tr>
+        <tr>
+          <td>Μνήμη</td>
+          <td>2. Επεξεργασία στον Εγκέφαλο</td>
+          <td><span style="color:var(--accent-2);">Αποθηκευμένη εμπειρία στην μνήμη</span></td>
+        </tr>
+        <tr>
+          <td>2. Επεξεργασία στον Εγκέφαλο</td>
+          <td>3. Αποστολή Εντολών μέσω Νεύρων</td>
+          <td><span style="color:var(--accent-2);">Αποστολή εντολής μέσω νεύρων</span></td>
+        </tr>
+        <tr>
+          <td>3. Αποστολή Εντολών μέσω Νεύρων</td>
+          <td>Μυϊκό Σύστημα</td>
+          <td><span style="color:var(--accent-2);">Κίνηση / Αντίδραση</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">7</span> Assumptions</h2>
+
+    <div class="assumption">
+      <div class="icon-box">01</div>
+      <div class="content">
+        <strong>Επιλογή subsystem</strong>
+        <span>Επιλέχθηκε από το νευρικό σύστημα η διαδικασία που ακολουθείται σε περίπτωση ερεθίσματος.</span>
+      </div>
+    </div>
+
+    <div class="assumption">
+      <div class="icon-box">02</div>
+      <div class="content">
+        <strong>External Entities</strong>
+        <span>Το <strong>Περιβάλλον</strong> (πηγή ερεθίσματος) και το <strong>Μυϊκό Σύστημα</strong> (εκτελεστής της αντίδρασης).</span>
+      </div>
+    </div>
+
+    <div class="assumption">
+      <div class="icon-box">03</div>
+      <div class="content">
+        <strong>Data Store: Μνήμη</strong>
+        <span>Η μνήμη αποθηκεύει νέες εμπειρίες και τροφοδοτεί με 
+        αποθηκευμένες εμπειρίες τη διαδικασία σκέψης.</span>
+      </div>
+    </div>
+
+    <div class="assumption">
+      <div class="icon-box">04</div>
+      <div class="content">
+        <strong>Muscular System Connection</strong>
+        <span>Η εντολή που μεταδίδεται μέσω νεύρων για κίνηση ή αντίδραση εκτελείται μέσω του μυϊκού συστήματος — εξ ου και η σύνδεση. Το μυϊκό σύστημα αναλαμβάνει τη συνέχεια, η οποία δεν απεικονίζεται εδώ γιατί έχει επιλεγεί λειτουργία του νευρικού συστήματος.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SUB06 ==================== -->
+<section class="page" id="sub06">
+  <div class="sub-header s06">
+    <div class="icon">06</div>
+    <div>
+      <h1>Code + Unit Testing</h1>
+      <p>Python implementation & pytest with CI</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">1</span> Σκοπός</h2>
+    <p>
+      Επιλογή μιας κλάσης από το Class Diagram (Sub02), υλοποίηση του 
+      αντίστοιχου κώδικα σε <strong>Python</strong>, και δημιουργία 
+      <strong>unit tests</strong> με <strong>pytest</strong>. Επιπλέον, 
+      ρύθμιση <strong>GitHub Actions</strong> για continuous integration.
+    </p>
+
+    <h3>Goals</h3>
+    <div class="task-checklist">
+      <div class="task-item"><span class="status">✓</span> At least 1 class με ≥1 attribute + ≥1 method</div>
+      <div class="task-item"><span class="status">✓</span> At least 2 unit testing functions</div>
+      <div class="task-item"><span class="status">✓</span> requirements.txt με pytest</div>
+      <div class="task-item"><span class="status">✓</span> GitHub Actions workflow για automated testing</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">2</span> Υλοποίηση</h2>
+
+    <h3>musculoskeletal_system.py</h3>
+    <pre><span class="kw">class</span> <span class="type">Musculoskeletal_System</span>:
+    <span class="cm"># Constructor</span>
+    <span class="kw">def</span> <span class="fn">__init__</span>(self, var01):
+        self.cell_kind = var01
+
+    <span class="cm"># A simple function</span>
+    <span class="kw">def</span> <span class="fn">move</span>(self):
+        <span class="kw">if</span> (self.cell_kind <span class="kw">in</span> [<span class="str">"muscles"</span>, <span class="str">"bones"</span>]):
+            <span class="kw">return</span> <span class="kw">True</span>
+        <span class="kw">else</span>:
+            <span class="kw">return</span> <span class="kw">False</span></pre>
+
+    <h3>test_01.py</h3>
+    <pre><span class="cm"># import pytest</span>
+<span class="kw">from</span> musculoskeletal_system <span class="kw">import</span> Musculoskeletal_System
+
+<span class="cm"># Starting tests...</span>
+<span class="kw">def</span> <span class="fn">test_01</span>():
+    a = <span class="type">Musculoskeletal_System</span>(<span class="str">"muscles"</span>)
+    <span class="str">""" Check that move() == True """</span>
+    <span class="kw">assert</span> a.<span class="fn">move</span>() == <span class="kw">True</span>
+
+<span class="kw">def</span> <span class="fn">test_02</span>():
+    a = <span class="type">Musculoskeletal_System</span>(<span class="str">"bones"</span>)
+    <span class="str">""" Check that move() == True """</span>
+    <span class="kw">assert</span> a.<span class="fn">move</span>() == <span class="kw">True</span>
+
+<span class="kw">def</span> <span class="fn">test_03</span>():
+    a = <span class="type">Musculoskeletal_System</span>(<span class="str">"nerves"</span>)
+    <span class="str">""" Check that move() == False """</span>
+    <span class="kw">assert</span> a.<span class="fn">move</span>() == <span class="kw">False</span></pre>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">3</span> Requirements</h2>
+    <pre><span class="cm"># requirements.txt</span>
+pytest</pre>
+
+    <div class="alert info">
+      <strong>Εγκατάσταση:</strong> <code>pip install -r requirements.txt</code> 
+      — ή απλώς <code>pip install pytest</code>.
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">4</span> GitHub Actions CI</h2>
+    <p>
+      Δημιουργία φακέλου <code>.github/workflows/</code> με αρχείο 
+      <code>python-unit_test.yml</code> που εκτελεί αυτόματα τα tests σε 
+      κάθε push.
+    </p>
+
+    <div class="gh-badge">
+      <span class="dot"></span>
+      ✅ All workflows · Run Unit Test via Pytest · 18 runs · passing
+    </div>
+
+    <div class="alert success">
+      <strong>CI Status:</strong> Πάνω από 18 επιτυχείς runs — το workflow 
+      εκτελείται αυτόματα σε κάθε push στο <code>main</code> branch. Μέσος 
+      χρόνος εκτέλεσης: ~12 δευτερόλεπτα.
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">5</span> Test Coverage</h2>
+
+    <table>
+      <thead><tr><th>Test</th><th>Input</th><th>Expected</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><code>test_01</code></td>
+          <td><code>"muscles"</code></td>
+          <td>move() == True</td>
+        </tr>
+        <tr>
+          <td><code>test_02</code></td>
+          <td><code>"bones"</code></td>
+          <td>move() == True</td>
+        </tr>
+        <tr>
+          <td><code>test_03</code></td>
+          <td><code>"nerves"</code></td>
+          <td>move() == False</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">6</span> Assumptions</h2>
+
+    <div class="assumption">
+      <div class="icon-box">01</div>
+      <div class="content">
+        <strong>Επιλογή κλάσης: Musculoskeletal_System</strong>
+        <span>Δημιουργήθηκε κλάση βασισμένη στο μυοσκελετικό σύστημα, η 
+        οποία ελέγχει αν το <code>cell_kind</code> που δίνεται ως είσοδος 
+        είναι <em>muscle</em> ή <em>bone</em>. Αν είναι ένα από τα δύο, 
+        επιστρέφει <code>True</code> και επιτρέπει την κίνηση του 
+        οργανισμού. Διαφορετικά, επιστρέφει <code>False</code>.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  Εργασία · Software Systems Analysis and Design · ΕΚΠΑ · Spring 2025<br>
+  <span style="opacity:0.6;">© 2025 — Παπαθανασίου Ελένη</span>
+</footer>
+
+<script>
+function go(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  
+  const target = document.getElementById(page);
+  if (target) target.classList.add('active');
+  
+  const link = document.querySelector(`.nav-links a[data-page="${page}"]`);
+  if (link) link.classList.add('active');
+  
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  history.replaceState(null, '', '#' + page);
+}
+
+window.addEventListener('load', () => {
+  const hash = window.location.hash.slice(1) || 'home';
+  go(hash);
+});
+
+window.addEventListener('hashchange', () => {
+  const hash = window.location.hash.slice(1) || 'home';
+  go(hash);
+});
+</script>
+</body>
+</html>
