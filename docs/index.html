@@ -1,4 +1,3 @@
-<!-- site for the explanation of the project -->
 <!DOCTYPE html>
 <html lang="el">
 <head>
@@ -440,12 +439,12 @@ pre .type { color: #a78bfa; }
   font-family: 'JetBrains Mono', monospace;
 }
 
-/* Diagram containers - placeholders */
+/* Diagram containers */
 .diagram-viewer {
   background: #06040d;
   border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 1rem;
+  padding: 1.25rem;
   margin: 1rem 0;
   text-align: center;
 }
@@ -457,31 +456,23 @@ pre .type { color: #a78bfa; }
   margin-bottom: 0.75rem;
   padding-bottom: 0.5rem;
   border-bottom: 1px dashed var(--border);
+  text-align: left;
 }
 
 .diagram-viewer img {
   max-width: 100%;
   height: auto;
   border-radius: 8px;
+  background: #ffffff;
+  padding: 1rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  cursor: zoom-in;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.diagram-placeholder {
-  background: #06040d;
-  border: 2px dashed var(--border);
-  border-radius: 12px;
-  padding: 2rem 1.5rem;
-  margin: 1rem 0;
-  text-align: center;
-  color: var(--text-muted);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.85rem;
-}
-
-.diagram-placeholder .icon-large {
-  font-size: 3rem;
-  display: block;
-  margin-bottom: 0.75rem;
-  opacity: 0.4;
+.diagram-viewer img:hover {
+  transform: scale(1.01);
+  box-shadow: 0 8px 32px rgba(217,70,239,0.2);
 }
 
 /* Elements list */
@@ -558,6 +549,12 @@ pre .type { color: #a78bfa; }
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.82rem;
   margin: 0.5rem 0;
+  transition: all 0.2s;
+}
+
+a:hover .gh-badge {
+  background: rgba(217,70,239,0.15);
+  color: var(--accent-2);
 }
 
 .gh-badge .dot {
@@ -789,7 +786,7 @@ footer {
       <div class="diagram-title">📊 Use Case Diagram — UCD_sdi2200135.png</div>
       <img src="../Sub01/UCD_sdi2200135.png" alt="Use Case Diagram — Human Body as Organization">
     </div>
-    
+
     <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:0.75rem;">
       <a href="../Sub01/UCD_sdi2200135.pdf" target="_blank" style="text-decoration:none;">
         <span class="gh-badge"><span class="dot"></span>Άνοιγμα PDF</span>
@@ -927,14 +924,18 @@ footer {
   <div class="section">
     <h2><span class="num">2</span> Διάγραμμα</h2>
 
-    <div class="diagram-placeholder">
-      <span class="icon-large">🏛️</span>
-      <strong>Class Diagram — CD_sdi2200135</strong>
-      <p style="margin-top:0.75rem;">Δείτε το πλήρες διάγραμμα στο PDF ή την εικόνα του repository.</p>
-      <div class="gh-badge" style="margin-top:1rem; display:inline-flex;">
-        <span class="dot"></span>
-        CD_sdi2200135.pdf · CD_sdi2200135.png
-      </div>
+    <div class="diagram-viewer">
+      <div class="diagram-title">🏛️ Class Diagram — CD_sdi2200135.png</div>
+      <img src="../Sub02/CD_sdi2200135.png" alt="Class Diagram — Human Body Systems">
+    </div>
+
+    <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:0.75rem;">
+      <a href="../Sub02/CD_sdi2200135.pdf" target="_blank" style="text-decoration:none;">
+        <span class="gh-badge"><span class="dot"></span>Άνοιγμα PDF</span>
+      </a>
+      <a href="../Sub02/CD_sdi2200135.png" target="_blank" style="text-decoration:none;">
+        <span class="gh-badge"><span class="dot"></span>Άνοιγμα PNG</span>
+      </a>
     </div>
   </div>
 
@@ -1119,14 +1120,18 @@ footer {
   <div class="section">
     <h2><span class="num">2</span> Διάγραμμα</h2>
 
-    <div class="diagram-placeholder">
-      <span class="icon-large">🔁</span>
-      <strong>Sequence Diagram — SD_sdi2200135</strong>
-      <p style="margin-top:0.75rem;">Collaboration: Support of Cellular Metabolism</p>
-      <div class="gh-badge" style="margin-top:1rem; display:inline-flex;">
-        <span class="dot"></span>
-        SD_sdi2200135.pdf · SD_sdi2200135.png
-      </div>
+    <div class="diagram-viewer">
+      <div class="diagram-title">🔁 Sequence Diagram — SD_sdi2200135.png</div>
+      <img src="../Sub03/SD_sdi2200135.png" alt="Sequence Diagram — Support of Cellular Metabolism">
+    </div>
+
+    <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:0.75rem;">
+      <a href="../Sub03/SD_sdi2200135.pdf" target="_blank" style="text-decoration:none;">
+        <span class="gh-badge"><span class="dot"></span>Άνοιγμα PDF</span>
+      </a>
+      <a href="../Sub03/SD_sdi2200135.png" target="_blank" style="text-decoration:none;">
+        <span class="gh-badge"><span class="dot"></span>Άνοιγμα PNG</span>
+      </a>
     </div>
   </div>
 
@@ -1257,14 +1262,18 @@ footer {
   <div class="section">
     <h2><span class="num">2</span> Διάγραμμα</h2>
 
-    <div class="diagram-placeholder">
-      <span class="icon-large">⚡</span>
-      <strong>Statechart Diagram — SCD_sdi2200135</strong>
-      <p style="margin-top:0.75rem;">States of the Human Body instance in case of stimulus</p>
-      <div class="gh-badge" style="margin-top:1rem; display:inline-flex;">
-        <span class="dot"></span>
-        SCD_sdi2200135.pdf · SCD_sdi2200135.png
-      </div>
+    <div class="diagram-viewer">
+      <div class="diagram-title">⚡ Statechart Diagram — SCD_sdi2200135.png</div>
+      <img src="../Sub04/SCD_sdi2200135.png" alt="Statechart Diagram — States of Human Body">
+    </div>
+
+    <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:0.75rem;">
+      <a href="../Sub04/SCD_sdi2200135.pdf" target="_blank" style="text-decoration:none;">
+        <span class="gh-badge"><span class="dot"></span>Άνοιγμα PDF</span>
+      </a>
+      <a href="../Sub04/SCD_sdi2200135.png" target="_blank" style="text-decoration:none;">
+        <span class="gh-badge"><span class="dot"></span>Άνοιγμα PNG</span>
+      </a>
     </div>
   </div>
 
@@ -1379,14 +1388,18 @@ footer {
   <div class="section">
     <h2><span class="num">2</span> Διάγραμμα</h2>
 
-    <div class="diagram-placeholder">
-      <span class="icon-large">🔀</span>
-      <strong>Data Flow Diagram — DFD_sdi2200135</strong>
-      <p style="margin-top:0.75rem;">ΔΡΑ 0: ΕΠΕΞΕΡΓΑΣΙΑ ΕΡΕΘΙΣΜΑΤΩΝ — Επίπεδο Αποσύνθεσης: 1</p>
-      <div class="gh-badge" style="margin-top:1rem; display:inline-flex;">
-        <span class="dot"></span>
-        SCD_sdi2200135.pdf · SCD_sdi2200135.png
-      </div>
+    <div class="diagram-viewer">
+      <div class="diagram-title">🔀 Data Flow Diagram — DFD_sdi2200135.png</div>
+      <img src="../Sub05/DFD_sdi2200135.png" alt="Data Flow Diagram — Επεξεργασία Ερεθισμάτων">
+    </div>
+
+    <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:0.75rem;">
+      <a href="../Sub05/DFD_sdi2200135.pdf" target="_blank" style="text-decoration:none;">
+        <span class="gh-badge"><span class="dot"></span>Άνοιγμα PDF</span>
+      </a>
+      <a href="../Sub05/DFD_sdi2200135.png" target="_blank" style="text-decoration:none;">
+        <span class="gh-badge"><span class="dot"></span>Άνοιγμα PNG</span>
+      </a>
     </div>
   </div>
 
