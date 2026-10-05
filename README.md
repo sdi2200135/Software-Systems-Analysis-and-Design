@@ -4,6 +4,10 @@ Applying UML and systems analysis methodologies to model the human body as an or
 1. StarUML
 2. Python
 
+🌐 **[View the interactive presentation](https://sdi2200135.github.io/Software-Systems-Analysis-and-Design/)**
+
+[![Website](https://img.shields.io/badge/Website-Live-brightgreen)](https://sdi2200135.github.io/Software-Systems-Analysis-and-Design/)
+
 ## 1. Project Overview
 
 This project demonstrates fundamental Software Analysis and Design methodologies by treating the human body as a complex organizational system. The work is structured as a series of interconnected subprojects, each focusing on a different modeling perspective — from high-level requirements capture to detailed behavioral analysis and finally to executable code with validation.
